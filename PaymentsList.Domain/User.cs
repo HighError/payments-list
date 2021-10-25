@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PaymentsList.Domain.Models
+namespace PaymentsList.Domain
 {
     public class User
     {
-        public int Id {  get; set; }
-        public string Name {  get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public List<Group> Groups { get; set; }
     }
 }
