@@ -9,7 +9,7 @@ namespace PaymentsList.Domain
     public class Payment
     {
         public int Id { get; set; }
-        public int Amaunt { get; set; }
+        public int Amount { get; set; }
         public string Descripion { get; set; }
         public bool IsAccepted { get; set; }
         public User Issuer { get; set; }
