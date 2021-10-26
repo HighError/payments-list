@@ -22,9 +22,19 @@ namespace PaymentsList.API.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<User> GetUsers()
-        {
-            return _context.Users.AsNoTracking();
+        public IActionResult GetUsers()
+        { 
+            //var usersWithoutGroups = _context.Users.AsNoTracking().ToList();
+
+            var usersWithGroups = _context.Users.AsNoTracking()
+                .Select(user => new UserGetDTO
+                {
+                    Id = user.Id,
+                    Name = user.Name,
+                    Groups = user.Groups.Select(g => g.Id).ToList()
+                }).ToList();
+
+            return Ok(usersWithGroups);
         }
 
         [HttpGet("{id}")]
