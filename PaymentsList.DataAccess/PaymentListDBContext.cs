@@ -13,10 +13,30 @@ namespace PaymentsList.DataAccess
         public DbSet<User> Users {  get; set; }
         public DbSet<Group> Groups { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        public PaymentListDBContext(DbContextOptions<PaymentListDBContext> options) : base(options)
         {
-            var conn = @"Data Source=(LocalDb)\MSSQLLocalDb;Initial Catalog=PaymentsList";
-            optionsBuilder.UseSqlServer(conn);
+
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<User>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.HasMany(x => x.Groups)
+                    .WithMany(u => u.User);
+                b.HasIndex(x => x.Name)
+                    .IsUnique();
+            });
+
+            modelBuilder.Entity<Group>(b =>
+            {
+                b.HasKey(x => x.Id);
+                b.HasMany(x => x.User)
+                    .WithMany(u => u.Groups);
+                b.HasIndex(x => x.Name)
+                    .IsUnique();
+            });
         }
     }
 }
