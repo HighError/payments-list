@@ -44,9 +44,13 @@ namespace PaymentsList.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int> PostUser(UserPostDTO UserDto)
+        public async Task<string> PostUser(UserPostDTO UserDto)
         {
             var User = new User { Name = UserDto.Name };
+            if (User.Name == "")
+            {
+                return "Error creating user!";
+            }
 
             if (UserDto.GroupsId != null)
             {
@@ -57,7 +61,18 @@ namespace PaymentsList.API.Controllers
             await _context.Users.AddAsync(User);
             await _context.SaveChangesAsync();
 
-            return User.Id;
+            return $"User {User.Name} created. User ID: {User.Id}";
+        }
+
+        [HttpDelete]
+        public async Task<string> DeleteUser(int id)
+        {
+            var user = _context.Users.Where(x => x.Id == id).SingleOrDefault();
+            if (user == null) return "User not found!";
+
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return "User has successfully deleted!";
         }
     }
 }
