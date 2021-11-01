@@ -18,7 +18,6 @@ namespace PaymentsList.API.Controllers
         public GroupController(PaymentListDBContext context)
         {
             _context = context;
-            //_context.Database.EnsureCreated();
         }
 
         [HttpGet]
@@ -42,11 +41,15 @@ namespace PaymentsList.API.Controllers
         }
 
         [HttpPost]
-        public async Task<int> PostGroup(GroupPostDTO GroupDto)
+        public async Task<string> PostGroup(GroupPostDTO GroupDto)
         {
             var Group = new Group { Name = GroupDto.Name };
+            if (Group.Name == "")
+            {
+                return "Error creating group!";
+            }
 
-            if (GroupDto.UserId != null)
+            if (GroupDto.UserId != null && Group.Name != "")
             {
                 var users = _context.Users.Where(user => GroupDto.UserId.Contains(user.Id));
                 Group.User = await users.ToListAsync();
@@ -54,8 +57,18 @@ namespace PaymentsList.API.Controllers
 
             await _context.Groups.AddAsync(Group);
             await _context.SaveChangesAsync();
+            return $"Group {Group.Name} created. Group ID: {Group.Id}";
+        }
 
-            return Group.Id;
+        [HttpDelete]
+        public async Task<string> DeleteGroup(int id)
+        {
+            var group = _context.Groups.Where(x => x.Id == id).SingleOrDefault();
+            if (group == null) return "Group not found!";
+
+            _context.Groups.Remove(group);
+            await _context.SaveChangesAsync();
+            return "Group has successfully deleted!";
         }
     }
 }
