@@ -9,7 +9,7 @@ using PaymentsList.DataAccess;
 
 namespace PaymentsList.DataAccess.Migrations
 {
-    [DbContext(typeof(PaymentListDBContext))]
+    [DbContext(typeof(IBaseRepositoey))]
     [Migration("20211026064606_20211026-0945")]
     partial class _202110260945
     {

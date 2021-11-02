@@ -8,7 +8,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PaymentsList.BusinessLogic.Implementation;
+using PaymentsList.BusinessLogic.Interfaces;
 using PaymentsList.DataAccess;
+using PaymentsList.DataAccess.Implementation;
+using PaymentsList.DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,13 +32,17 @@ namespace PaymentsList
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PaymentListDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConnector")));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "PaymentsList", Version = "v1" });
             });
+
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
+
+            services.AddDbContext<PaymentListDBContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DBConnector")));
 
         }
 

@@ -8,7 +8,7 @@ using PaymentsList.DataAccess;
 
 namespace PaymentsList.DataAccess.Migrations
 {
-    [DbContext(typeof(PaymentListDBContext))]
+    [DbContext(typeof(IBaseRepositoey))]
     partial class PaymentListDBContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

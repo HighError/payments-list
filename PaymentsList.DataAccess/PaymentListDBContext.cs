@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PaymentsList.DataAccess
 {
-    public class PaymentListDBContext : DbContext
+    public class PaymentListDBContext : DbContext, IUnitOfWork
     {
         public DbSet<User> Users {  get; set; }
         public DbSet<Group> Groups { get; set; }
@@ -16,6 +17,11 @@ namespace PaymentsList.DataAccess
         public PaymentListDBContext(DbContextOptions<PaymentListDBContext> options) : base(options)
         {
 
+        }
+
+        public async Task CommitAsync()
+        {
+            await this.SaveChangesAsync(cancellationToken: default);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
