@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Ardalis.Specification;
+using Microsoft.EntityFrameworkCore;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain.Interfaces;
 using System;
@@ -45,6 +46,16 @@ namespace PaymentsList.DataAccess.Implementation
         {
             var item = await _context.Set<T>().FirstAsync(x => x.Id == id);
             _context.Remove(item);
+        }
+
+        public async Task<T> GetAsync(ISpecification<T> specification)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<T>> GetSingleAsync(ISpecification<T> specification)
+        {
+            throw new NotImplementedException();
         }
     }
 }

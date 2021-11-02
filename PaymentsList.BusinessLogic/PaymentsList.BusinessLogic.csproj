@@ -4,4 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Ardalis.Specification.EntityFrameworkCore" Version="5.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PaymentsList.DataAccess\PaymentsList.DataAccess.csproj" />
+    <ProjectReference Include="..\PaymentsList.Domain\PaymentsList.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
