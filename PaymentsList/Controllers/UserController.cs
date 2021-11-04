@@ -18,14 +18,11 @@ namespace PaymentsList.API.Controllers
         public UserController(PaymentListDBContext context)
         {
             _context = context;
-            //_context.Database.EnsureCreated();
         }
 
         [HttpGet]
         public IActionResult GetUsers()
         { 
-            //var usersWithoutGroups = _context.Users.AsNoTracking().ToList();
-
             var usersWithGroups = _context.Users.AsNoTracking()
                 .Select(user => new UserGetDTO
                 {

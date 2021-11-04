@@ -1,4 +1,4 @@
-﻿using Ardalis.Specification;
+using Ardalis.Specification;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -12,7 +12,7 @@ namespace PaymentsList.DataAccess.Interfaces
         Task<T> InsertASync(T item);
         Task UpdateAsync(T item);
         Task DeleteAsync(int id);
-        Task<T> GetAsync(ISpecification<T> specification);
-        Task<IEnumerable<T>> GetSingleAsync(ISpecification<T> specification);
+        Task<IEnumerable<T>> GetAsync(ISpecification<T> specification);
+        Task<T> GetSingleAsync(ISpecification<T> specification);
     }
 }

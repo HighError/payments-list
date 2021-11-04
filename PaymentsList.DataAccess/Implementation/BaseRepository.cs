@@ -1,9 +1,11 @@
 ﻿using Ardalis.Specification;
+using Ardalis.Specification.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace PaymentsList.DataAccess.Implementation
@@ -48,14 +50,20 @@ namespace PaymentsList.DataAccess.Implementation
             _context.Remove(item);
         }
 
-        public async Task<T> GetAsync(ISpecification<T> specification)
+        public async Task<IEnumerable<T>> GetAsync(ISpecification<T> specification)
         {
-            throw new NotImplementedException();
+            return await ApplySpecification(specification).ToListAsync();
         }
 
-        public Task<IEnumerable<T>> GetSingleAsync(ISpecification<T> specification)
+        public async Task<T> GetSingleAsync(ISpecification<T> specification)
         {
-            throw new NotImplementedException();
+            return await ApplySpecification(specification).FirstOrDefaultAsync();
+        }
+
+        public IQueryable<T> ApplySpecification(ISpecification<T> specification)
+        {
+            var evaluator = new SpecificationEvaluator();
+            return evaluator.GetQuery(_context.Set<T>(), specification);
         }
     }
 }
