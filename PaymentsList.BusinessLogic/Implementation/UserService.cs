@@ -1,4 +1,6 @@
-﻿using PaymentsList.BusinessLogic.Interfaces;
+﻿using PaymentsList.BusinessLogic.Exceptions;
+using PaymentsList.BusinessLogic.Interfaces;
+using PaymentsList.BusinessLogic.Specifications;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain;
 using System.Collections.Generic;
@@ -17,6 +19,14 @@ namespace PaymentsList.BusinessLogic.Implementation
         public async Task<IEnumerable<User>> GetUsersAsync()
         {
             return await _repository.GetAsync();
+        }
+
+        public async Task<User> GetUserWithIdAsync(int id)
+        {
+            var specification = new UserIdSpecification(id);
+            var item = await _repository.GetSingleAsync(specification);
+
+            return item;
         }
     }
 }
