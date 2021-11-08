@@ -1,5 +1,4 @@
-﻿using PaymentsList.BusinessLogic.Exceptions;
-using PaymentsList.BusinessLogic.Interfaces;
+﻿using PaymentsList.BusinessLogic.Interfaces;
 using PaymentsList.BusinessLogic.Specifications;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain;
