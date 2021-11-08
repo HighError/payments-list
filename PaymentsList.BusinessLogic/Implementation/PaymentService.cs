@@ -7,9 +7,13 @@ using System.Threading.Tasks;
 
 namespace PaymentsList.BusinessLogic.Implementation
 {
-    public class PaymentImplementation : IPaymentService
+    public class PaymentService : IPaymentService
     {
         private readonly IBaseRepository<Payment> _repository;
+        public PaymentService(IBaseRepository<Payment> repository)
+        {
+            _repository = repository;
+        }
         public async Task<IEnumerable<Payment>> GetPaymentsAsync()
         {
             return await _repository.GetAsync();
