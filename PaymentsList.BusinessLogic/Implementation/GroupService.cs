@@ -13,9 +13,10 @@ namespace PaymentsList.BusinessLogic.Implementation
     {
         private readonly IBaseRepository<Group> _repository;
         private readonly IBaseRepository<User> _userRepository;
-        public GroupService(IBaseRepository<Group> repository)
+        public GroupService(IBaseRepository<Group> repository, IBaseRepository<User> userReoisitory)
         {
             _repository = repository;
+            _userRepository = userReoisitory;
         }
 
         public async Task AddUserToGroupAsync(int groupId, int userId)
