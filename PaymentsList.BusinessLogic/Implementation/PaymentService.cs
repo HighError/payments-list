@@ -1,4 +1,5 @@
-﻿using PaymentsList.BusinessLogic.Interfaces;
+﻿using PaymentsList.BusinessLogic.Exceptions;
+using PaymentsList.BusinessLogic.Interfaces;
 using PaymentsList.BusinessLogic.Specifications;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain;
@@ -10,9 +11,13 @@ namespace PaymentsList.BusinessLogic.Implementation
     public class PaymentService : IPaymentService
     {
         private readonly IBaseRepository<Payment> _repository;
-        public PaymentService(IBaseRepository<Payment> repository)
+        private readonly IBaseRepository<User> _userRepository;
+        private readonly IBaseRepository<Group> _groupRepository;
+        public PaymentService(IBaseRepository<Payment> repository, IBaseRepository<User> userRepository, IBaseRepository<Group> groupRepository)
         {
             _repository = repository;
+            _groupRepository = groupRepository;
+            _userRepository = userRepository;
         }
         public async Task<IEnumerable<Payment>> GetPaymentsAsync()
         {
@@ -45,6 +50,33 @@ namespace PaymentsList.BusinessLogic.Implementation
             var item = await _repository.GetAsync(specification);
 
             return item;
+        }
+        public async Task CreatePayment(decimal amount, string description, int issuerId, int recipientId, int groupId)
+        {
+            var issuer = await _userRepository.GetByIdAsync(issuerId);
+            var recipient = await _userRepository.GetByIdAsync(recipientId);
+            var group = await _groupRepository.GetByIdAsync(groupId);
+
+            if (issuer == null || recipient == null) throw new UserNotFoundException();
+            if (group == null) throw new GroupNotFoundException();
+
+            var payment = new Payment()
+            {
+                Amount = amount,
+                Descripion = description,
+                Issuer = issuer,
+                Recipient = recipient,
+                Group = group,
+                IsAccepted = false
+            };
+
+            await _repository.InsertASync(payment);
+        }
+        public async Task AcceptPayment(int id)
+        {
+            var payment = await GetPaymentByIdAsync(id);
+            payment.IsAccepted = true;
+            await _repository.UpdateAsync(payment);
         }
     }
 }

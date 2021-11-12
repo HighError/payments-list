@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace PaymentsList.BusinessLogic.Exceptions
 {
-    internal class UserIsInThisGroup : BaseException
+    public class GroupNotFoundException : BaseException
     {
-        public UserIsInThisGroup() : base("User is in this group", HttpStatusCode.Conflict){ }
+        public GroupNotFoundException() : base("Group not found", HttpStatusCode.NotFound) { }
     }
 }

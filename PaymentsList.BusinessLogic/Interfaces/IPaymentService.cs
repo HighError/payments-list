@@ -14,5 +14,7 @@ namespace PaymentsList.BusinessLogic.Interfaces
         Task<IEnumerable<Payment>> GetPaymentsByIssuerAsync(int id);
         Task<IEnumerable<Payment>> GetPaymentsByRecipientAsync(int id);
         Task<IEnumerable<Payment>> GetPaymentsByGroupAsync(int id);
+        Task CreatePayment (decimal amount, string description, int issuerId, int recipientId, int groupId);
+        Task AcceptPayment(int id);
     }
 }
