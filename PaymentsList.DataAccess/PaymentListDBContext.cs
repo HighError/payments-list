@@ -1,23 +1,16 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace PaymentsList.DataAccess
 {
     public class PaymentListDBContext : DbContext, IUnitOfWork
     {
-        public DbSet<User> Users {  get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
 
-        public PaymentListDBContext(DbContextOptions<PaymentListDBContext> options) : base(options)
-        {
-
-        }
+        public PaymentListDBContext(DbContextOptions<PaymentListDBContext> options) : base(options) {}
 
         public async Task CommitAsync()
         {

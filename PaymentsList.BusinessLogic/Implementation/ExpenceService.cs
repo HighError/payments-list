@@ -3,7 +3,6 @@ using PaymentsList.BusinessLogic.Interfaces;
 using PaymentsList.BusinessLogic.Specifications;
 using PaymentsList.DataAccess.Interfaces;
 using PaymentsList.Domain;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,20 +10,20 @@ namespace PaymentsList.BusinessLogic.Implementation
 {
     public class ExpenceService : IExpenceService
     {
-        private readonly IBaseRepository<ExpenceDatail> _repository;
+        private readonly IBaseRepository<ExpenceDetail> _repository;
         private readonly IBaseRepository<User> _userRepository;
         private readonly IBaseRepository<Group> _groupRepository;
-        public ExpenceService(IBaseRepository<ExpenceDatail> repository, IBaseRepository<User> userRepository, IBaseRepository<Group> groupRepository)
+        public ExpenceService(IBaseRepository<ExpenceDetail> repository, IBaseRepository<User> userRepository, IBaseRepository<Group> groupRepository)
         {
             _repository = repository;
             _groupRepository = groupRepository;
             _userRepository = userRepository;
         }
-        public async Task<IEnumerable<ExpenceDatail>> GetExpencesAsync()
+        public async Task<IEnumerable<ExpenceDetail>> GetExpencesAsync()
         {
             return await _repository.GetAsync();
         }
-        public async Task<ExpenceDatail> GetExpenceByIdAsync(int id)
+        public async Task<ExpenceDetail> GetExpenceByIdAsync(int id)
         {
             var specification = new ExpenceByIdSpecification(id);
             var item = await _repository.GetSingleAsync(specification);
@@ -32,7 +31,16 @@ namespace PaymentsList.BusinessLogic.Implementation
             return item;
         }
 
-        public async Task CreateExpence(decimal amount, int userId, string description, int groupId)
+        public async Task CreateExpence(/*ExpenceHeader expenceHeader, List<ExpenceDetail> expenceDatails*/)
+        {
+            //foreach (var item in expenceDatails)
+            //{
+            //    item.ExpenceHeader = expenceHeader;
+            //    await _repository.InsertASync(item);
+            //}
+        }
+
+        /*public async Task CreateExpence(decimal amount, int userId, string description, int groupId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
             var group = await _groupRepository.GetByIdAsync(groupId);
@@ -55,6 +63,6 @@ namespace PaymentsList.BusinessLogic.Implementation
             };
 
             await _repository.InsertASync(expenceDetail);
-        }
+        }*/
     }
 }

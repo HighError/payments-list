@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace PaymentsList.BusinessLogic.Specifications
 {
-    public class ExpenceByIdSpecification : Specification<ExpenceDatail>
+    public class ExpenceByIdSpecification : Specification<ExpenceDetail>
     {
         public ExpenceByIdSpecification(int id)
         {
