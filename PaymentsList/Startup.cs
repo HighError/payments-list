@@ -12,7 +12,7 @@ using PaymentsList.DataAccess;
 using PaymentsList.DataAccess.Implementation;
 using PaymentsList.DataAccess.Interfaces;
 
-namespace PaymentsList
+namespace PaymentsList.API
 {
     public class Startup
     {
