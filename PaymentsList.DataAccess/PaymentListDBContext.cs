@@ -9,6 +9,7 @@ namespace PaymentsList.DataAccess
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Group> Groups { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         public PaymentListDBContext(DbContextOptions<PaymentListDBContext> options) : base(options) {}
 

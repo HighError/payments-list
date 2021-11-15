@@ -2,7 +2,7 @@
 
 namespace PaymentsList.BusinessLogic.Exceptions
 {
-    internal class UserIsInThisGroup : BaseException
+    public class UserIsInThisGroup : BaseException
     {
         public UserIsInThisGroup() : base("User is in this group", HttpStatusCode.Conflict){ }
     }

@@ -33,6 +33,7 @@ namespace PaymentsList.BusinessLogic.Implementation
 
         public async Task CreateExpence(/*ExpenceHeader expenceHeader, List<ExpenceDetail> expenceDatails*/)
         {
+            //TODO
             //foreach (var item in expenceDatails)
             //{
             //    item.ExpenceHeader = expenceHeader;
