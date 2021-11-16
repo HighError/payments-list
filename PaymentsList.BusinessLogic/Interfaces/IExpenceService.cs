@@ -6,8 +6,8 @@ namespace PaymentsList.BusinessLogic.Interfaces
 {
     public interface IExpenceService
     {
-        Task<IEnumerable<ExpenceDetail>> GetExpencesAsync();
-        Task<ExpenceDetail> GetExpenceByIdAsync(int id);
-        Task CreateExpence();
+        Task<IEnumerable<ExpenceHeader>> GetExpencesAsync();
+        Task<ExpenceHeader> GetExpenceByIdAsync(int id);
+        Task CreateExpence(ExpenceHeader expenceHeader);
     }
 }

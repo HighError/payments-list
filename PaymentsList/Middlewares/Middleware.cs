@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using PaymentsList.BusinessLogic.Exceptions;
 using System;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace PaymentsList.API.MiddleWares
@@ -20,21 +21,15 @@ namespace PaymentsList.API.MiddleWares
             {
                 await _next(context);
             }
-            catch (GroupNotFoundException e)
+            catch (BaseException e)
             {
-                //TODO
+                context.Response.StatusCode = (int)e.StatusCode;
+                await context.Response.WriteAsync(e.Message);
             }
-            catch (UserNotFoundException e)
+            catch (Exception)
             {
-                //TODO
-            }
-            catch (UserIsInThisGroup e)
-            {
-                //TODO
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.ToString());
+                context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await context.Response.WriteAsync("Unexpected error!");
             }
         }
     }

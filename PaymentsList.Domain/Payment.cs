@@ -1,6 +1,8 @@
-﻿namespace PaymentsList.Domain
+﻿using PaymentsList.Domain.Interfaces;
+
+namespace PaymentsList.Domain
 {
-    public class Payment
+    public class Payment : IEntity
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }

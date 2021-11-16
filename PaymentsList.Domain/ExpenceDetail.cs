@@ -1,4 +1,6 @@
-﻿namespace PaymentsList.Domain
+﻿using System.Collections.Generic;
+
+namespace PaymentsList.Domain
 {
     public class ExpenceDetail
     {
