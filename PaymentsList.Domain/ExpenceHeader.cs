@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using PaymentsList.Domain.Interfaces;
+using System.Collections.Generic;
 
 namespace PaymentsList.Domain
 {
-    public class ExpenceHeader
+    public class ExpenceHeader : IEntity
     {
         public int Id { get; set; }
         public string Descrption { get; set; }

@@ -36,7 +36,7 @@ namespace PaymentsList.API
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IGroupService, GroupService>();
             services.AddScoped<IPaymentService, PaymentService>();
-            //services.AddScoped<IExpenceService, ExpenceService>();
+            services.AddScoped<IExpenceService, ExpenceService>();
 
             services.AddScoped(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 

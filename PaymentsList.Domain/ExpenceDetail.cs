@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using PaymentsList.Domain.Interfaces;
+using System.Collections.Generic;
 
 namespace PaymentsList.Domain
 {
-    public class ExpenceDetail
+    public class ExpenceDetail : IEntity
     {
         public int Id { get; set; }
         public decimal Amount { get; set; }
